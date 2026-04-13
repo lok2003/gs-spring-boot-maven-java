@@ -15,6 +15,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+
       - name: get package
         run: mvn clean package
         working-directory: complete
@@ -23,3 +24,8 @@ jobs:
     #   run: |
     #     cd complete
     #     mvn clean package
+      - name: Run Jar file
+      run: |
+         cd complete
+         java -jar target/*.jar & sleep 20
+         curl http://localhost:8080
