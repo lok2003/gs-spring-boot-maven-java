@@ -25,7 +25,7 @@ jobs:
 
       - name: Build package
         run: mvn clean package
-        working-directory: complete
+        working-directory: ${{ vars.APP_DIR }}
 
     # - name: Run app and test API
     #  run: |
@@ -43,5 +43,5 @@ jobs:
       - name: Upload JAR file
         uses: actions/upload-artifact@v4
         with:
-          name: spring-boot-jar-${{ matrix.java }}-${{ matrix.distribution }}
+          name: ${{ vars.ARTIFACT_NAME }}-${{ matrix.java }}-${{ matrix.distribution }}
           path: complete/target/*.jar
