@@ -22,6 +22,7 @@ jobs:
         with:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.java }}
+          cache: maven
 
       - name: Build package
         run: mvn clean package
@@ -44,4 +45,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ vars.ARTIFACT_NAME }}-${{ matrix.java }}-${{ matrix.distribution }}
-          path: complete/target/*.jar
+          path: ${{ vars.APP_DIR }}/target/*.jar
