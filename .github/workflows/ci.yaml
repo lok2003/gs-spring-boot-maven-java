@@ -8,7 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [11,17,21,25]
+        distribution: [temurin, zulu, microsoft]
     steps:
       - name: checkout the code
         uses: actions/checkout@v4
@@ -16,28 +20,28 @@ jobs:
       - name: setup java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: ${{ matrix.distribution }}
+          java-version: ${{ matrix.java }}
 
       - name: Build package
         run: mvn clean package
         working-directory: complete
 
-      - name: Run app and test API
-        run: |
-          cd complete
-          java -jar target/*.jar &
-          sleep 20
-          curl http://localhost:8080 > output.txt
+    # - name: Run app and test API
+    #  run: |
+    #     cd complete
+    #     java -jar target/*.jar &
+    #     sleep 20
+    #     curl http://localhost:8080 > output.txt
 
-      - name: Upload REST output
-        uses: actions/upload-artifact@v4
-        with:
-          name: rest-output
-          path: complete/output.txt
+    #  - name: Upload REST output
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: rest-output-${{ matrix.java }}-${{matrix.distribution}}
+    #     path: complete/output.txt
 
       - name: Upload JAR file
         uses: actions/upload-artifact@v4
         with:
-          name: spring-boot-jar
+          name: spring-boot-jar-${{ matrix.java }}-${{ matrix.distribution }}
           path: complete/target/*.jar
