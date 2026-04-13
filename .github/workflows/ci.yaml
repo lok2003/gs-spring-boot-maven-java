@@ -1,12 +1,14 @@
----
 name: java
+
 on:
   push:
     branches:
       - dev
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: checkout the code
         uses: actions/checkout@v4
@@ -21,15 +23,21 @@ jobs:
         run: mvn clean package
         working-directory: complete
 
-    
       - name: Run app and test API
         run: |
           cd complete
-          java -jar target/*.jar & sleep 20
+          java -jar target/*.jar &
+          sleep 20
           curl http://localhost:8080 > output.txt
 
-      - name: upload output
+      - name: Upload REST output
         uses: actions/upload-artifact@v4
         with:
           name: rest-output
           path: complete/output.txt
+
+      - name: Upload JAR file
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-boot-jar
+          path: complete/target/*.jar
