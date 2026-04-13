@@ -24,8 +24,13 @@ jobs:
     #   run: |
     #     cd complete
     #     mvn clean package
-      - name: Run Jar file
-        run: |
-         cd complete
-         java -jar target/*.jar & sleep 20
-         curl http://localhost:8080
+    # - name: Run Jar file
+    #   run: |
+    #   cd complete
+    #    java -jar target/*.jar & sleep 20
+    #    curl http://localhost:8080
+      - name: upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: rest-output
+          path: compleete/output.txt
