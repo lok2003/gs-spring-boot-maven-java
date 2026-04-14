@@ -62,4 +62,4 @@ jobs:
       - name: show files
         run: ls -la
       - name: Deploy Step
-        run: echo "Deploying to ${{ vars.DEPLOY_ENV }} environment..."
+        run: java -jar *.jar
