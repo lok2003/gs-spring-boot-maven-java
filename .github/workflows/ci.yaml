@@ -44,7 +44,8 @@ jobs:
       #       -Dsonar.organization=${{ vars.ORG_NAME }}
       
       - name: SonarCloud Scan
-        run: mvn sonar:sonar \
+        run: |
+          mvn sonar:sonar \
               -Dsonar.projectKey=${{ vars.PROJECT_KEY }} \
               -Dsonar.organization=${{ vars.ORG_NAME }} \
               -Dsonar.host.url=https://sonarcloud.io
