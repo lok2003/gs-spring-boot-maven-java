@@ -33,12 +33,12 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v2
         env:
            SONAR_TOKEN: ${{ secrets.SONAR_PETCLINIC }}
-           SONAR_HOST_URL: https://sonarcloud.io
+           #SONAR_HOST_URL: https://sonarcloud.io
         with:
           args: >
             -Dsonar.projectKey=${{ vars.PROJECT_NAME }}
             -Dsonar.organization=${{ vars.ORG_NAME }}
-            -Dsonar.branch.name=dev
+          # -Dsonar.branch.name=dev
             
       - name: Upload JAR file
         uses: actions/upload-artifact@v4
