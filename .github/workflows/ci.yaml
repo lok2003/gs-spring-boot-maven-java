@@ -31,17 +31,28 @@ jobs:
         run: mvn clean package
         working-directory: ${{ vars.APP_DIR }}
 
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v2
+      # - name: SonarQube Scan
+      #   #uses: SonarSource/sonarqube-scan-action@v2
+      #   run: mvn sonar:sonar \
+      #   env:
+      #      SONAR_TOKEN: ${{ secrets.SONAR_PETCLINIC }}
+      #      SONAR_HOST_URL: https://sonarcloud.io
+      #   with:
+      #     projectBaseDir: ${{ vars.APP_DIR }}
+      #     args: >
+      #       -Dsonar.projectKey=${{ vars.PROJECT_KEY }}
+      #       -Dsonar.organization=${{ vars.ORG_NAME }}
+      
+      - name: SonarCloud Scan
+        run: mvn sonar:sonar \
+              -Dsonar.projectKey=${{ vars.PROJECT_KEY }} \
+              -Dsonar.organization=${{ vars.ORG_NAME }} \
+              -Dsonar.host.url=https://sonarcloud.io
+        working-directory: ${{ vars.APP_DIR }}
         env:
-           SONAR_TOKEN: ${{ secrets.SONAR_PETCLINIC }}
-           SONAR_HOST_URL: https://sonarcloud.io
-        with:
-          projectBaseDir: ${{ vars.APP_DIR }}
-          args: >
-            -Dsonar.projectKey=${{ vars.PROJECT_KEY }}
-            -Dsonar.organization=${{ vars.ORG_NAME }}
-        
+          SONAR_TOKEN: ${{ secrets.SONAR_PETCLINIC }}
+  
+
       - name: Upload JAR file
         uses: actions/upload-artifact@v4
         with:
