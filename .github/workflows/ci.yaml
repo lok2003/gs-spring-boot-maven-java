@@ -37,6 +37,7 @@ jobs:
            SONAR_TOKEN: ${{ secrets.SONAR_PETCLINIC }}
            SONAR_HOST_URL: https://sonarcloud.io
         with:
+          projectBaseDir: ${{ vars.APP_DIR }}
           args: >
             -Dsonar.projectKey=${{ vars.PROJECT_KEY }}
             -Dsonar.organization=${{ vars.ORG_NAME }}
