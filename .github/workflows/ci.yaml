@@ -35,7 +35,7 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v2
         env:
            SONAR_TOKEN: ${{ secrets.SONAR_PETCLINIC }}
-           
+           SONAR_HOST_URL: https://sonarcloud.io
         with:
           args: >
             -Dsonar.projectKey=${{ vars.PROJECT_KEY }}
